@@ -14,7 +14,7 @@ const {validateComment,validateUpdateComment,} = require("../utils/vaildateComme
  */
 const getAllCommentsCtrl = asyncHandler(
     async (req, res, next) => {
-    const comments = await Comment.find({}, {__v: false}).populate("user", ["-password"]);
+    const comments = await Comment.find({}, {__v: false}).populate("user", ["-password"]).populate("postID", ["-password"])
     res.status(200).json({status: statusText[200], message: "Fetch Comments successfullly", data: {comments}})
 })
 

@@ -3,17 +3,17 @@ const joi = require("joi")
 
 
 const CategorySchema = new Schema({
-    user: {
+    user:{
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: true,
     },
     title:{
         type: String,
         required: true,
         trim: true
     }
-},{ timestamps: true});
+},{ timestamps: true });
 
 
 const Category = model("Category", CategorySchema);

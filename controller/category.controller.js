@@ -11,7 +11,9 @@ const statusText = require("../utils/httpStatusText");
  */
 const getAllCategoryCtrl = asyncHandler(
     async (req, res, next) => {
-    const categories = await Category.find({}, {__v: false}).populate("user", ["-password", "-__v"])
+    const categories = await Category.find({}, {__v: false})
+      console.log(categories);
+      
     res.status(200).json({status: statusText[200], message: "Fetch Comments successfullly", data: {categories}})
 })
 
@@ -29,8 +31,8 @@ const createCategoryCtrl = asyncHandler(
         return next(err);
      }   
      const category = await Category.create({
-        title: req.body.title,
-        user: req.currentUser.id,
+         user: req.currentUser.id,
+        title: req.body.title
     })
    res.status(201).json({status: statusText[201], message: "Add New Category successfullly", data: {category}})
 })

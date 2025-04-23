@@ -31,12 +31,10 @@ const registerCtl = asyncHandler(
         return next(err);
     }
 
-    const salt = await genSalt(10);
-    const hashedPassword = await hash(password, salt);
     const newUser = createUser({
         username,
         email,
-        password: hashedPassword,
+        password,
         role
     })
     await saveUser(newUser);
@@ -118,8 +116,8 @@ const loginCtl = asyncHandler(
       return res.status(307).json({status: statusText[307], message: "We send OTP code to your email please check your email address" })
     }
 // **********************************************
-    const token = await generateJWT({id: user._id, email: user.email ,role: user.role});
-    const tokenOption = { httpOnly:true, secure:true }
+    const token = generateJWT({id: user._id, email: user.email ,role: user.role});
+    const tokenOption = { sameSite:"None", httpOnly:true, secure:true }
     res.cookie('token',token, tokenOption).status(200).json({status: statusText[200], message: "User Login successfully",data:{id   :user._id} })
 })
 /** 

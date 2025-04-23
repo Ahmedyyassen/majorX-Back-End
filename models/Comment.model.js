@@ -24,7 +24,7 @@ const CommentSchema = new Schema({
 
 
 const Comment = model("Comment", CommentSchema);
-const createComment  =  async(data)=> (await Comment.create(data)).populate("user", ["-password", "-__v"]);
+const createComment  =  async(data)=> (await Comment.create(data)).populate("user", ["-password", "-__v"])
 
 module.exports = {
     Comment,
