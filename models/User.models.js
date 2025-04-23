@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { ADMIN, USER, MANGER } = require("../utils/userRole");
-const { hash } = require("bcryptjs");
+const { hash, genSalt } = require("bcryptjs");
 
 const userSchema = new Schema({
   username: {
