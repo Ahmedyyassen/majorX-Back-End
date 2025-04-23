@@ -34,9 +34,6 @@ const userSchema = new Schema({
             default: null,
           },
   },
-  hashtag:{
-    type: String
-  },
   bio:{
     type: String
   },
@@ -73,11 +70,7 @@ userSchema.virtual("posts", {
   foreignField: "user",
   localField: "_id"
 })
-userSchema.pre("save", async function(next){
-  const salt = await genSalt(10);
-  this.password = await hash(this.password, salt);
-  next();
-})
+
 const UserModel = model("User", userSchema);
 
 // Functions

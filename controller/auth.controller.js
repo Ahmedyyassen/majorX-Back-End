@@ -30,11 +30,12 @@ const registerCtl = asyncHandler(
         const err = appError.createError("This user in already registered", 400, statusText[400]);
         return next(err);
     }
-
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt)
     const newUser = createUser({
         username,
         email,
-        password,
+        password:hashedPassword,
         role
     })
     await saveUser(newUser);
